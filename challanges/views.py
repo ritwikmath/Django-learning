@@ -2,6 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 import calendar
 from django.urls import reverse
+from django.template.loader import render_to_string
+
+def index(request):
+    text = ""
+    for month in calendar.month_name:
+        if month == "":
+            continue
+        text += f"<li><a href={reverse('monthly-challange', args=[month])}>{month}</a></li>" 
+    response_content= render_to_string("challanges/challange.html")
+    return HttpResponse(response_content)
 
 def monthly_challange(request, month):
     if not list(calendar.month_name).__contains__(month.capitalize()):
