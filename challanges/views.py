@@ -10,8 +10,7 @@ def index(request):
         if month == "":
             continue
         text += f"<li><a href={reverse('monthly-challange', args=[month])}>{month}</a></li>" 
-    response_content= render_to_string("challanges/challange.html")
-    return HttpResponse(response_content)
+    return render(request, "challanges/challange.html")
 
 def monthly_challange(request, month):
     if not list(calendar.month_name).__contains__(month.capitalize()):
