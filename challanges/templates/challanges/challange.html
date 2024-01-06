@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Challange</title>
-</head>
-<body>
-    <h1>Demo</h1>
-</body>
-</html>
+{% extends 'layout.html' %}
+
+{% block title %}{{ title|title }}{% endblock title %}
+
+{% block body %}
+<div>
+    <h1>{{ header|title }}</h1>
+    <ul>
+        {% for month in months %}
+            {% if month == '' %}
+                <!-- continue -->
+            {% else %}
+                <li>{{forloop.counter|add:"-1"}}<a href="{% url 'monthly-challange' month %}">{{ month }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

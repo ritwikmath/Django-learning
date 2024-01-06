@@ -5,12 +5,11 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 
 def index(request):
-    text = ""
-    for month in calendar.month_name:
-        if month == "":
-            continue
-        text += f"<li><a href={reverse('monthly-challange', args=[month])}>{month}</a></li>" 
-    return render(request, "challanges/challange.html")
+    return render(request, "challanges/challange.html", {
+        "months": calendar.month_name,
+        "title": "List of months",
+        "header": "Month list"
+    })
 
 def monthly_challange(request, month):
     if not list(calendar.month_name).__contains__(month.capitalize()):
