@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Month {{ month }}{% endblock %}
+
+{% block body %}
+{% include "challanges/includes/header.html" %}
+<div>
+    <h1>You have select {{ month }}</h1>
+    {% if search %}
+        <h3 style='color: green'>Search term is: {{ search }}</h3>
+    {% else %}
+        <h3 style='color: red'>No search term</h3>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 import calendar
 from django.urls import reverse
 from django.template.loader import render_to_string
@@ -8,18 +8,20 @@ def index(request):
     return render(request, "challanges/challange.html", {
         "months": calendar.month_name,
         "title": "List of months",
-        "header": "Month list"
+        "header": "Month list",
+        "css": "style.css"
     })
 
 def monthly_challange(request, month):
-    if not list(calendar.month_name).__contains__(month.capitalize()):
-        return HttpResponseNotFound(f"<span style='color:red'>{month} month not supported</span>")
+    capitalized_month = month.capitalize()
+    if not list(calendar.month_name).__contains__(capitalized_month):
+        response_text = render_to_string("404.html")
+        return HttpResponseNotFound(response_text)
     search = request.GET.get("search")
-    response_content = f"""
-        <h1>Selected Month is {month}</h1>
-        <h3>Search value is {search or 'Empty'}</h3>
-    """
-    return HttpResponse(response_content)
+    return render(request, "challanges/monthly_challanges.html", {
+        "month": capitalized_month,
+        "search": search
+    })
 
 def monthly_challange_by_number(request, month):
     try:

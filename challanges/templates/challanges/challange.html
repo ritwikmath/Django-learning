@@ -1,4 +1,9 @@
 {% extends 'layout.html' %}
+{% load static %}
+
+{% block css-files %}
+<link rel="stylesheet" href="{% static 'challanges/'|add:css %}" />
+{% endblock %}
 
 {% block title %}{{ title|title }}{% endblock title %}
 
@@ -10,7 +15,7 @@
             {% if month == '' %}
                 <!-- continue -->
             {% else %}
-                <li>{{forloop.counter|add:"-1"}}<a href="{% url 'monthly-challange' month %}">{{ month }}</a></li>
+                <li>{{forloop.counter|add:"-1"}} - <a href="{% url 'monthly-challange' month %}">{{ month }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
